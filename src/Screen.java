@@ -33,7 +33,7 @@ public class Screen extends JFrame {
 	private String nomeArquivo, ScreenTitle;
 
 	private JMenuBar menuBar = new JMenuBar();
-	private JMenu arquivoMenu, editarMenu, alinhamentoMenu, estilosMenu, tamanhoFontesMenu, fontesMenu, coresFonteMenu;
+	private JMenu fileMenu, editMenu, alignmentMenu, stylesMenu, fontSizeMenu, fontsMenu, fontColorsMenu;
 	private JMenuItem saveAction, openAction, clearAction, exitAction, boldFontAction, italicFontAction, Font8Action,
 			Font15Action, Font24Action, AbyssinicaFontAction, AniFontAction, ChilankaFontAction,
 			justifiedAlignmentAction, centralizedAlignmentAction, rightAlignmentAction, redFontAction, purpleFontAction,
@@ -83,8 +83,6 @@ public class Screen extends JFrame {
 		arquivoMenu = new JMenu("Arquivo");
 		editarMenu = new JMenu("Editor");
 		alinhamentoMenu = new JMenu("Alinhamento");
-		menuBar.add(arquivoMenu);
-		menuBar.add(editarMenu);
 
 		saveAction = new JMenuItem("Salvar Arquivo");
 		saveAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
@@ -100,40 +98,48 @@ public class Screen extends JFrame {
 		boldFontAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, ActionEvent.CTRL_MASK));
 		italicFontAction = new JMenuItem("Itálico");
 		italicFontAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
-		estilosMenu.add(boldFontAction);
-		estilosMenu.add(italicFontAction);
 
 		tamanhoFontesMenu = new JMenu("Tamanho Fontes");
 		Font8Action = new JMenuItem("12px");
 		Font15Action = new JMenuItem("15px");
 		Font24Action = new JMenuItem("24px");
-		tamanhoFontesMenu.add(Font8Action);
-		tamanhoFontesMenu.add(Font15Action);
-		tamanhoFontesMenu.add(Font24Action);
-
+		
 		fontesMenu = new JMenu("Fontes");
 		AbyssinicaFontAction = new JMenuItem("Abyssinica");
 		AniFontAction = new JMenuItem("Ani");
 		ChilankaFontAction = new JMenuItem("Chilanka");
-		fontesMenu.add(AbyssinicaFontAction);
-		fontesMenu.add(AniFontAction);
-		fontesMenu.add(ChilankaFontAction);
 
 		justifiedAlignmentAction = new JMenuItem("Justificado");
 		centralizedAlignmentAction = new JMenuItem("Centralizado");
 		rightAlignmentAction = new JMenuItem("Á Direita");
-		alinhamentoMenu.add(justifiedAlignmentAction);
-		alinhamentoMenu.add(centralizedAlignmentAction);
-		alinhamentoMenu.add(rightAlignmentAction);
 
 		coresFonteMenu = new JMenu("Cores");
 		redFontAction = new JMenuItem("Vermelho");
 		purpleFontAction = new JMenuItem("Roxo");
 		blackFontAction = new JMenuItem("Preto");
+		
+		estilosMenu.add(boldFontAction);
+		estilosMenu.add(italicFontAction);
+		
+		tamanhoFontesMenu.add(Font8Action);
+		tamanhoFontesMenu.add(Font15Action);
+		tamanhoFontesMenu.add(Font24Action);
+		
+		fontesMenu.add(AbyssinicaFontAction);
+		fontesMenu.add(AniFontAction);
+		fontesMenu.add(ChilankaFontAction);
+		
 		coresFonteMenu.add(redFontAction);
 		coresFonteMenu.add(purpleFontAction);
 		coresFonteMenu.add(blackFontAction);
 
+		menuBar.add(arquivoMenu);
+		menuBar.add(editarMenu);
+		
+		alinhamentoMenu.add(justifiedAlignmentAction);
+		alinhamentoMenu.add(centralizedAlignmentAction);
+		alinhamentoMenu.add(rightAlignmentAction);
+		
 		arquivoMenu.add(saveAction);
 		arquivoMenu.add(openAction);
 		arquivoMenu.add(clearAction);
