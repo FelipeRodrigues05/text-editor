@@ -28,8 +28,8 @@ public class Screen extends JFrame {
 	private int width = 500;
 	private int height = 500;
 	private int fontSize;
-	private JTextPane texto;
-	private FileDialog fdAbrir, fdSalvar;
+	private JTextPane text;
+	private FileDialog fdOpen, fdSave;
 	private String nomeArquivo, ScreenTitle;
 
 	private JMenuBar menuBar = new JMenuBar();
@@ -72,17 +72,17 @@ public class Screen extends JFrame {
 		setSize(width, height);
 		setVisible(true);
 
-		texto = new JTextPane();
-		texto.setSize(width, height);
-		texto.setFont(new Font("", Font.PLAIN, 12));
+		text = new JTextPane();
+		text.setSize(width, height);
+		text.setFont(new Font("", Font.PLAIN, 12));
 		fontSize = 12;
 
-		fdAbrir = new FileDialog(this, "Abrir Arquivo", FileDialog.LOAD);
-		fdSalvar = new FileDialog(this, "Salvar Arquivo", FileDialog.SAVE);
+		fdOpen = new FileDialog(this, "Abrir Arquivo", FileDialog.LOAD);
+		fdSave = new FileDialog(this, "Salvar Arquivo", FileDialog.SAVE);
 
-		arquivoMenu = new JMenu("Arquivo");
-		editarMenu = new JMenu("Editor");
-		alinhamentoMenu = new JMenu("Alinhamento");
+		fileMenu = new JMenu("Arquivo");
+		editMenu = new JMenu("Editor");
+		alignmentMenu = new JMenu("Alinhamento");
 
 		saveAction = new JMenuItem("Salvar Arquivo");
 		saveAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
@@ -93,18 +93,18 @@ public class Screen extends JFrame {
 		exitAction = new JMenuItem("Sair");
 		exitAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
 
-		estilosMenu = new JMenu("Estilos Fonte");
+		stylesMenu = new JMenu("Estilos Fonte");
 		boldFontAction = new JMenuItem("Negrito");
 		boldFontAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, ActionEvent.CTRL_MASK));
 		italicFontAction = new JMenuItem("Itálico");
 		italicFontAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
 
-		tamanhoFontesMenu = new JMenu("Tamanho Fontes");
+		fontSizeMenu = new JMenu("Tamanho Fontes");
 		Font8Action = new JMenuItem("12px");
 		Font15Action = new JMenuItem("15px");
 		Font24Action = new JMenuItem("24px");
 		
-		fontesMenu = new JMenu("Fontes");
+		fontsMenu = new JMenu("Fontes");
 		AbyssinicaFontAction = new JMenuItem("Abyssinica");
 		AniFontAction = new JMenuItem("Ani");
 		ChilankaFontAction = new JMenuItem("Chilanka");
@@ -113,47 +113,47 @@ public class Screen extends JFrame {
 		centralizedAlignmentAction = new JMenuItem("Centralizado");
 		rightAlignmentAction = new JMenuItem("Á Direita");
 
-		coresFonteMenu = new JMenu("Cores");
+		fontColorsMenu = new JMenu("Cores");
 		redFontAction = new JMenuItem("Vermelho");
 		purpleFontAction = new JMenuItem("Roxo");
 		blackFontAction = new JMenuItem("Preto");
 		
-		estilosMenu.add(boldFontAction);
-		estilosMenu.add(italicFontAction);
+		stylesMenu.add(boldFontAction);
+		stylesMenu.add(italicFontAction);
 		
-		tamanhoFontesMenu.add(Font8Action);
-		tamanhoFontesMenu.add(Font15Action);
-		tamanhoFontesMenu.add(Font24Action);
+		fontSizeMenu.add(Font8Action);
+		fontSizeMenu.add(Font15Action);
+		fontSizeMenu.add(Font24Action);
 		
-		fontesMenu.add(AbyssinicaFontAction);
-		fontesMenu.add(AniFontAction);
-		fontesMenu.add(ChilankaFontAction);
+		fontsMenu.add(AbyssinicaFontAction);
+		fontsMenu.add(AniFontAction);
+		fontsMenu.add(ChilankaFontAction);
 		
-		coresFonteMenu.add(redFontAction);
-		coresFonteMenu.add(purpleFontAction);
-		coresFonteMenu.add(blackFontAction);
+		fontColorsMenu.add(redFontAction);
+		fontColorsMenu.add(purpleFontAction);
+		fontColorsMenu.add(blackFontAction);
 
-		menuBar.add(arquivoMenu);
-		menuBar.add(editarMenu);
+		menuBar.add(fileMenu);
+		menuBar.add(editMenu);
 		
-		alinhamentoMenu.add(justifiedAlignmentAction);
-		alinhamentoMenu.add(centralizedAlignmentAction);
-		alinhamentoMenu.add(rightAlignmentAction);
+		alignmentMenu.add(justifiedAlignmentAction);
+		alignmentMenu.add(centralizedAlignmentAction);
+		alignmentMenu.add(rightAlignmentAction);
 		
-		arquivoMenu.add(saveAction);
-		arquivoMenu.add(openAction);
-		arquivoMenu.add(clearAction);
-		arquivoMenu.addSeparator();
-		arquivoMenu.add(exitAction);
+		fileMenu.add(saveAction);
+		fileMenu.add(openAction);
+		fileMenu.add(clearAction);
+		fileMenu.addSeparator();
+		fileMenu.add(exitAction);
 
-		editarMenu.add(estilosMenu);
-		editarMenu.add(fontesMenu);
-		editarMenu.add(tamanhoFontesMenu);
-		editarMenu.add(coresFonteMenu);
-		editarMenu.addSeparator();
-		editarMenu.add(alinhamentoMenu);
+		editMenu.add(stylesMenu);
+		editMenu.add(fontsMenu);
+		editMenu.add(fontSizeMenu);
+		editMenu.add(fontColorsMenu);
+		editMenu.addSeparator();
+		editMenu.add(alignmentMenu);
 
-		add(texto);
+		add(text);
 
 	}
 
@@ -169,13 +169,13 @@ public class Screen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					fdSalvar.setVisible(true);
-					if (fdSalvar.getFile() == null) {
+					fdSave.setVisible(true);
+					if (fdSave.getFile() == null) {
 						return;
 					}
-					nomeArquivo = fdSalvar.getDirectory() + fdSalvar.getFile();
-					FileWriter out = new FileWriter(nomeArquivo + ".txt");
-					out.write(texto.getText());
+					fileName = fdSave.getDirectory() + fdSave.getFile();
+					FileWriter out = new FileWriter(fileName + ".txt");
+					out.write(text.getText());
 					out.close();
 					setTitle("Arquivo salvo com sucesso!");
 					try {
@@ -195,22 +195,22 @@ public class Screen extends JFrame {
 		openAction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					fdAbrir.setVisible(true);
-					if (fdAbrir.getFile() == null) {
+					fdOpen.setVisible(true);
+					if (fdOpen.getFile() == null) {
 						return;
 					}
-					nomeArquivo = fdAbrir.getDirectory() + fdAbrir.getFile();
-					FileReader in = new FileReader(nomeArquivo);
+					fileName = fdOpen.getDirectory() + fdOpen.getFile();
+					FileReader in = new FileReader(fileName);
 					String s = "";
 					int i = in.read();
 					while (i != -1) {
 						s = s + (char) i;
 						i = in.read();
 					}
-					texto.setText(s);
+					text.setText(s);
 					in.close();
 
-					setTitle(nomeArquivo + " aberto com sucesso!");
+					setTitle(fileName + " aberto com sucesso!");
 					try {
 						Thread.sleep(2500);
 					} catch (InterruptedException e1) {
@@ -229,7 +229,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setText(" ");
+				text.setText(" ");
 
 			}
 		});
@@ -238,7 +238,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setFont(new Font("", Font.PLAIN, 8));
+				text.setFont(new Font("", Font.PLAIN, 8));
 				fontSize = 8;
 
 			}
@@ -248,7 +248,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setFont(new Font("", Font.PLAIN, 15));
+				text.setFont(new Font("", Font.PLAIN, 15));
 				fontSize = 15;
 			}
 		});
@@ -257,7 +257,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setFont(new Font("", Font.PLAIN, 24));
+				text.setFont(new Font("", Font.PLAIN, 24));
 				fontSize = 24;
 			}
 		});
@@ -266,7 +266,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setFont(new Font("", Font.BOLD, fontSize));
+				text.setFont(new Font("", Font.BOLD, fontSize));
 
 			}
 		});
@@ -275,7 +275,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setFont(new Font("", Font.ITALIC, fontSize));
+				text.setFont(new Font("", Font.ITALIC, fontSize));
 
 			}
 		});
@@ -284,7 +284,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setFont(new Font("Abyssinica SIL", Font.PLAIN, fontSize));
+				text.setFont(new Font("Abyssinica SIL", Font.PLAIN, fontSize));
 
 			}
 		});
@@ -293,7 +293,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setFont(new Font("Ani", Font.PLAIN, fontSize));
+				text.setFont(new Font("Ani", Font.PLAIN, fontSize));
 			}
 		});
 
@@ -301,7 +301,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setFont(new Font("Chilanka", Font.PLAIN, fontSize));
+				text.setFont(new Font("Chilanka", Font.PLAIN, fontSize));
 			}
 		});
 
@@ -345,8 +345,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setForeground(Color.red);
-
+				text.setForeground(Color.red);
 			}
 		});
 
@@ -354,7 +353,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setForeground(new Color(111, 0, 255));
+				text.setForeground(new Color(111, 0, 255));
 
 			}
 		});
@@ -363,7 +362,7 @@ public class Screen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				texto.setForeground(Color.black);
+				text.setForeground(Color.black);
 
 			}
 		});
